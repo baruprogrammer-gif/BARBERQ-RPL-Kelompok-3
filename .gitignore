@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+config/config.local.php
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+node_modules/
+vendor/
+coverage/
+.tmp/
