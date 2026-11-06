@@ -13,7 +13,7 @@ render_header('Beranda');
 <section class="figma-hero" aria-labelledby="hero-heading">
   <div class="figma-hero-copy">
     <h1 id="hero-heading">Reservasi barbershop,<br>lebih praktis.</h1>
-    <p>Pilih layanan, tentukan jadwal, dan pantau antrean langsung dari browser.</p>
+    <p>Pilih layanan, atur jadwal kunjungan, dan pantau antrean secara online.</p>
     <?php if (!$user): ?>
       <a class="btn gold" href="<?= e(app_url('register.php')) ?>">Daftar Sekarang</a>
     <?php elseif ($user['role']==='admin'): ?>
