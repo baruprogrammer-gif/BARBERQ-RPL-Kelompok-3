@@ -2,7 +2,7 @@
 require __DIR__.'/../includes/bootstrap.php';require_login('admin');
 $date=$_GET['date']??date('Y-m-d');
 if(!preg_match('/^\d{4}-\d{2}-\d{2}$/',(string)$date)||!checkdate((int)substr($date,5,2),(int)substr($date,8,2),(int)substr($date,0,4)))$date=date('Y-m-d');
-$stmt=db()->prepare("SELECT r.*,u.name customer_name,u.email,s.name service_name FROM reservations r JOIN users u ON u.id=r.user_id JOIN services s ON s.id=r.service_id WHERE r.reservation_date=? AND r.status IN ('BOOKED','WAITING','IN_SERVICE') ORDER BY COALESCE(r.queue_number,999999),r.reservation_time");$stmt->execute([$date]);$rows=$stmt->fetchAll();
+$stmt=db()->prepare("SELECT r.*,u.name customer_name,u.email,s.name service_name FROM reservations r JOIN users u ON u.id=r.user_id JOIN services s ON s.id=r.service_id WHERE r.reservation_date=? AND r.status IN ('BOOKED','WAITING','IN_SERVICE') ORDER BY r.reservation_time ASC, COALESCE(r.queue_number,999999) ASC");$stmt->execute([$date]);$rows=$stmt->fetchAll();
 render_header('Reservasi & Antrean');page_head('Reservasi & antrean','Tandai kedatangan lalu perbarui progres pelayanan setiap pelanggan.');
 ?>
 <form method="get" class="panel date-filter"><div><label for="date" style="margin-top:0">Tanggal pelayanan</label><p class="help" style="margin:0">Lihat reservasi aktif pada tanggal tertentu.</p></div><div class="actions"><input id="date" type="date" name="date" value="<?= e($date) ?>" required><button class="btn" type="submit"><?= ui_icon('search',17) ?> Tampilkan</button></div></form>
